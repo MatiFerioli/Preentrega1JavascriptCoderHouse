@@ -1,4 +1,4 @@
-// Definición del menú con un array más simple
+// Menú
 const menu = [
   ["Hamburguesa", 12000],
   ["Milanesa", 14000],
