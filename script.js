@@ -1,24 +1,22 @@
-// Menú
+// Definición del menú con un array más simple
 const menu = [
-  { id: 1, nombre: "Hamburguesa", precio: 12000 },
-  { id: 2, nombre: "Milanesa", precio: 14000 },
-  { id: 3, nombre: "Papas fritas", precio: 8000 },
-  { id: 4, nombre: "Lomito", precio: 15000 },
-  { id: 5, nombre: "Choripan", precio: 10000 },
-  { id: 6, nombre: "Pizza", precio: 11000 },
-  { id: 7, nombre: "Empanadas", precio: 4000 },
-  { id: 8, nombre: "Gaseosa", precio: 3500 },
-  { id: 9, nombre: "Agua", precio: 3000 },
-  { id: 10, nombre: "Cerveza", precio: 4500 },
+  ["Hamburguesa", 12000],
+  ["Milanesa", 14000],
+  ["Papas fritas", 8000],
+  ["Lomito", 15000],
+  ["Choripán", 10000],
+  ["Pizza", 11000],
+  ["Empanadas", 4000],
+  ["Gaseosa", 3500],
+  ["Agua", 3000],
+  ["Cerveza", 4500],
 ];
 
 // Función para mostrar el menú en consola
 function mostrarMenu() {
-  let mensaje =
-    "Bienvenido al restaurante de comida rápida. ¿Qué desea pedir?\n\nMenú de Comidas Rápidas:\n";
+  let mensaje = "Bienvenido al restaurante de comida rápida. ¿Qué desea pedir?\n\nMenú de Comidas Rápidas:\n";
   for (let i = 0; i < menu.length; i++) {
-    mensaje +=
-      menu[i].id + ". " + menu[i].nombre + " - $" + menu[i].precio + "\n";
+    mensaje += i + 1 + ". " + menu[i][0] + " - $" + menu[i][1] + "\n";
   }
   console.log(mensaje);
   alert(mensaje);
@@ -31,32 +29,27 @@ function realizarPedido() {
   let opcion;
 
   do {
-    let mensaje = "Ingrese el número del producto que desea comprar (o pulse 0 para finalizar):\n";
+    let mensaje = "Ingrese el número del producto que desea comprar (o pulse 0 para finalizar el pedido):\n";
     for (let i = 0; i < menu.length; i++) {
-      mensaje += menu[i].id + ". " + menu[i].nombre + " - $" + menu[i].precio + "\n";
+      mensaje += i + 1 + ". " + menu[i][0] + " - $" + menu[i][1] + "\n";
     }
-    opcion = parseInt(prompt(mensaje));
+    opcion = prompt(mensaje);
+    opcion = opcion && opcion.trim() !== "" ? Number(opcion) : NaN;
 
     if (opcion === 0) {
-        break;
-    }
-    let producto = null;
-    for (let i = 0; i < menu.length; i++) {
-      if (menu[i].id === opcion) {
-        producto = menu[i];
-        break;
-      }
+      break;
     }
 
-    if (producto !== null) {
+    if (opcion > 0 && opcion <= menu.length) {
+      let producto = menu[opcion - 1];
       seleccion.push(producto);
-      total += producto.precio;
-      console.log("Agregado: " + producto.nombre + " - $" + producto.precio);
-      alert("Agregado: " + producto.nombre + " - $" + producto.precio + "\nTotal actual: $" + total);
-    } else if (opcion !== 0) {
+      total += producto[1];
+      console.log("Agregado: " + producto[0] + " - $" + producto[1]);
+      alert("Agregado: " + producto[0] + " - $" + producto[1] + "\nTotal actual: $" + total);
+    } else {
       alert("Opción inválida. Intente nuevamente.");
     }
-  } while (opcion !== 0);
+  } while (true);
 
   console.log("Total a pagar: $" + total);
   procesarPago(total);
@@ -66,15 +59,15 @@ function realizarPedido() {
 function procesarPago(total) {
   let pago;
   do {
-    pago = parseFloat(
-      prompt("El total a pagar es $" + total + ". Ingrese el monto a pagar:"));
+    pago = prompt("El total a pagar es $" + total + ". Ingrese el monto con el que va a pagar:");
+    pago = pago ? Number(pago) : 0;
 
-    if (!(pago > 0)) {
+    if (pago <= 0) {
       alert("El valor ingresado es inválido. Intente nuevamente.");
     } else if (pago < total) {
       alert("Monto insuficiente. Intente nuevamente.");
     }
-  } while (!(pago > 0) || pago < total);
+  } while (pago <= 0 || pago < total);
 
   let vuelto = pago - total;
   alert("Pago exitoso. Su vuelto es $" + vuelto);
@@ -84,6 +77,6 @@ function procesarPago(total) {
   console.log("Muchas gracias por su compra, el pedido estará pronto.");
 }
 
-// Llamada a las funciones 
+// Inicio del simulador
 mostrarMenu();
 realizarPedido();
