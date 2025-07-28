@@ -1,13 +1,13 @@
 // Menú
 const menu = [
-  ["Hamburguesa", 12000],
-  ["Milanesa", 14000],
-  ["Papas fritas", 8000],
-  ["Lomito", 15000],
-  ["Choripán", 10000],
-  ["Pizza", 11000],
+  ["Hamburguesa", 15000],
+  ["Milanesa", 17000],
+  ["Papas fritas", 10000],
+  ["Lomito", 20000],
+  ["Choripán", 12000],
+  ["Pizza", 15000],
   ["Empanadas", 4000],
-  ["Gaseosa", 3500],
+  ["Gaseosa", 4000],
   ["Agua", 3000],
   ["Cerveza", 4500],
 ];
